@@ -9,7 +9,7 @@
 
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/editText1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -17,9 +17,37 @@
         android:ems="10"
         android:gravity="right|bottom"
         android:inputType="textPersonName"
-        android:text="0"
+        android:text=""
         android:padding="5px"
         android:maxLength="10"
+        android:textSize="35pt" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:cursorVisible="false"
+        android:ems="10"
+        android:gravity="center|top"
+        android:inputType="textPersonName"
+        android:maxLength="10"
+        android:padding="5px"
+        android:text=""
+        android:textSize="14pt" />
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:cursorVisible="false"
+        android:ems="10"
+        android:gravity="right|bottom"
+        android:inputType="textPersonName"
+        android:maxLength="10"
+        android:padding="5px"
+        android:text="0"
         android:textSize="35pt" />
 
     <TableLayout
