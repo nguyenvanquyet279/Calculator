@@ -11,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText ed1, ed2, ed3;
     private Boolean isNewOp1 = true, isNewOp2 = true, isNewOp3 = true;
     private String oldNum = "";
-    private String cal = "";
+    private String cal = "", oldCal = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +20,16 @@ public class MainActivity extends AppCompatActivity {
         ed1 = findViewById(R.id.editText1);
         ed2 = findViewById(R.id.editText2);
         ed3 = findViewById(R.id.editText3);
+    }
+
+    public String checkInt(double number) {
+        String cutResult = number + "";
+        String[] array = cutResult.split("\\.");
+        if (array[1].equals("0")) {
+            return array[0];
+        } else {
+            return (number + "");
+        }
     }
 
     public void numberEvent(View view) {
@@ -73,7 +83,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void calculationEvent(View view) {
-        oldNum = ed3.getText().toString();
+        String number1 = ed1.getText().toString();
+        String number3 = ed3.getText().toString();
+        if (number1.length() != 0 && oldCal != "") {
+            switch (oldCal) {
+                case "/":
+                    oldNum = (Double.parseDouble(number1) / Double.parseDouble(number3)) + "";
+                    break;
+                case "*":
+                    oldNum = (Double.parseDouble(number1) * Double.parseDouble(number3)) + "";
+                    break;
+                case "+":
+                    oldNum = (Double.parseDouble(number1) + Double.parseDouble(number3)) + "";
+                    break;
+                case "-":
+                    oldNum = (Double.parseDouble(number1) - Double.parseDouble(number3)) + "";
+                    break;
+            }
+        } else {
+            oldNum = number3;
+        }
         switch (view.getId()) {
             case R.id.butDivide:
                 cal = "/";
@@ -88,10 +117,11 @@ public class MainActivity extends AppCompatActivity {
                 cal = "-";
                 break;
         }
+        oldCal = cal;
         isNewOp3 = true;
         isNewOp2 = false;
         isNewOp1 = false;
-        ed1.setText(oldNum + "");
+        ed1.setText(checkInt(Double.parseDouble(oldNum)));
         ed2.setText(cal);
         ed3.setText("");
     }
@@ -114,12 +144,17 @@ public class MainActivity extends AppCompatActivity {
                 result = Double.parseDouble(oldNum) - Double.parseDouble(number3);
                 break;
         }
+        if (number1.length() == 0) {
+            result = Double.parseDouble(number3);
+        }
+        ed3.setText(checkInt(result));
         ed1.setText(number1 + " " + cal + " " + number3);
         ed2.setText("=");
-        ed3.setText(result + "");
         isNewOp3 = true;
         isNewOp2 = true;
         isNewOp1 = true;
+        cal = "";
+        oldCal = "";
     }
 
     public void cleanEvent(View view) {
@@ -131,7 +166,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void delEvent(View view) {
         String number = ed3.getText().toString();
-        System.out.println(number + " " + number.length());
         if (number.length() > 1) {
             number = number.substring(0, number.length() - 1);
             ed3.setText(number);
