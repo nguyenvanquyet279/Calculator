@@ -85,7 +85,9 @@ public class MainActivity extends AppCompatActivity {
     public void calculationEvent(View view) {
         String number1 = ed1.getText().toString();
         String number3 = ed3.getText().toString();
-        if (number1.length() != 0 && oldCal != "") {
+        if (number3.length() == 0) {
+            System.out.println(1);
+        } else if (number1.length() != 0 && oldCal != "") {
             switch (oldCal) {
                 case "/":
                     oldNum = (Double.parseDouble(number1) / Double.parseDouble(number3)) + "";
